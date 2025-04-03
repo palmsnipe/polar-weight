@@ -1,0 +1,58 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Environment variables and secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Cookies and credentials
+cookies.json
+
+# Logs
+*.log
+logs/
+
+# Debug files
+*.debug
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Screenshots and browser artifacts
+*.png
+*.jpg
+*.jpeg
+auth-error.png
+weight-error.png
+login-page.png
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+.project
+.classpath
+.settings/
+
+# Distribution / packaging
+dist/
+build/
