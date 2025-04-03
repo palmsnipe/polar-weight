@@ -10,16 +10,11 @@ async function main() {
   const weight = process.argv[2] || 70; // Default weight or from command line
   
   // Parse date from command line argument (YYYY-MM-DD format) or use today
-  let dateObj = new Date();
+  let dateInput;
   if (process.argv[3]) {
-    const dateStr = process.argv[3];
-    const dateParts = dateStr.split('-');
-    if (dateParts.length === 3) {
-      const year = parseInt(dateParts[0]);
-      const month = parseInt(dateParts[1]) - 1; // JavaScript months are 0-indexed
-      const day = parseInt(dateParts[2]);
-      dateObj = new Date(year, month, day);
-    }
+    // Pass the date string directly instead of converting to Date object
+    // This avoids timezone issues that could cause the date to shift
+    dateInput = process.argv[3]; // Keep as string format "YYYY-MM-DD"
   }
   
   // Initialize the browser
@@ -30,7 +25,8 @@ async function main() {
     const page = await initPage(browser);
     
     // Try to update weight directly - this will also check authentication
-    let weightUpdated = await updateWeight(page, weight, dateObj);
+    // Pass the date as a string if provided, otherwise use default (today)
+    let weightUpdated = await updateWeight(page, weight, dateInput);
     
     // If updating weight failed due to authentication, try to authenticate and then update weight
     if (!weightUpdated) {
@@ -39,7 +35,7 @@ async function main() {
       
       if (authSuccess) {
         console.log('Authentication successful, trying weight update again...');
-        weightUpdated = await updateWeight(page, weight, dateObj);
+        weightUpdated = await updateWeight(page, weight, dateInput);
       } else {
         console.error('Authentication failed. Please check your credentials in the .env file.');
       }
